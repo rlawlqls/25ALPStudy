@@ -1,34 +1,29 @@
 #include <iostream>
-#include <list>
+#include <queue>
 
 using namespace std;
 
-int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    
-    int k, n;
+int main(){
+    ios::sync_with_stdio(false);
+	cout.tie(NULL);
+	cin.tie(NULL);
+
+    int n, k;
     cin >> n >> k;
-
-    list<int> l;
-
+    queue<int> q;
     for(int i = 1; i <= n; i++){
-        l.push_back(i);
+        q.push(i);
     }
-    
-    auto cursor = l.begin();
-
     cout << "<";
-    while(l.size() > 1){
-        for(int i = 0; i < k - 1; i++){
-            cursor++;
-            if(cursor == l.end()) cursor = l.begin();
+    while(q.size() > 1){
+        for(int i = 1; i < k; i++){
+            int temp = q.front();
+            q.pop();
+            q.push(temp);
         }
-        cout << *cursor << ", ";
-        cursor = l.erase(cursor);
-        if(cursor == l.end()) cursor = l.begin();
+        cout << q.front() << ", ";
+        q.pop();
     }
-    cout << *cursor << ">";     
+    cout << q.front() << ">";
     return 0;
 }
