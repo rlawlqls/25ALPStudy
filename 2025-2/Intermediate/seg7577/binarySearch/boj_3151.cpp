@@ -95,7 +95,7 @@ int main() {
     // }
     // cout << '\n';
 
-    int range = abs(vec[0]) + abs(vec[vec.size() -1]);
+    long long range = abs(vec[0]) + abs(vec[vec.size() -1]);
 
     long long answer = 0;
     for (int i = 0; i < n - 2; i++) { 
