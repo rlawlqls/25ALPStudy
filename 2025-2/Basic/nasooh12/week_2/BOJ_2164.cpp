@@ -15,7 +15,7 @@ int main(void){
     }
     //1. 제일 위 카드 pop
     //2. 처리 후 제일 위 카드를 push 하고 pop
-    while(--N && !queue.empty()){
+    while(queue.size() != 1){
         queue.pop();
         queue.push(queue.front());
         queue.pop();
