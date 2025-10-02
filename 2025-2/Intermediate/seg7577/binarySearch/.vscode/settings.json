@@ -7,5 +7,6 @@
         "iosfwd": "cpp",
         "iostream": "cpp",
         "__bit_reference": "cpp"
-    }
+    },
+    "livePreview.defaultPreviewPath": "/test.html"
 }
