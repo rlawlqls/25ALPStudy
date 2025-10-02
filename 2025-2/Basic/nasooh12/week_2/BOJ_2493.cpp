@@ -26,33 +26,51 @@ int main(void){
     }
     int shot; // 발사 타워 높이 - 검사 받는 타워의 높이
     int shotIdx = N-1; // 발사 타워 위치
+    
 
     while (!towerStack.empty())
     {
-        //shot은 따로 보관하여 towerStack 규모 1 줄임
+        //shot은 따로 보관하여 towerStack 규모 1 줄임 (undo x)
         shot = towerStack.top();
         towerStack.pop();
-
-        while (!towerStack.empty())
+        // if(towerStack.empty()){
+        //     resultArr[shotIdx--] = 0;
+        // }
+        //cout <<"undo size :"<< undoStack.size()<<"\n";
+        while (true)
         {   
-            // 가독성을 위해 변수 지정
-            int target = towerStack.top();
-            int targetIdx = towerStack.size();
-            //적중 시 기록 후 undo(루프 탈출)
-            if(target >= shot){
-                resultArr[shotIdx] = targetIdx;
-                shotIdx--;
-                //만약 undo stack에 뭐가 있으면 undo 해준 후 루프 탈출
-                while (!undoStack.empty()){
-                    towerStack.push(undoStack.top());
-                    undoStack.pop();
+            if(!towerStack.empty()){
+                // 가독성을 위해 변수 지정
+                int target = towerStack.top();
+                int targetPos = towerStack.size(); 
+                //적중 시 기록 후 undo(루프 탈출)
+                if(target >= shot){
+                    resultArr[shotIdx--] = targetPos;
+                    //만약 undo stack에 뭐가 있으면 undo 해준 후 루프 탈출
+                    while (!undoStack.empty()){
+                        towerStack.push(undoStack.top());
+                        undoStack.pop();
+                    }
+                    //cout << "while 2 good end \ntarget : "<<target<<"\n tpos :"<< targetPos<< "\n";
+
+                    break;
                 }
-                break;
+                //비 적중시 타겟 재지정 (twstack 규모-1,undostack+1,루프)
+                else{
+                    undoStack.push(target);
+                    towerStack.pop();
+                }
+                //cout << "while 2 next end \ntarget : "<<target<<"\n tpos :"<< targetPos<< "\n";
             }
-            //비 적중시 타겟 재지정 (twstack 규모-1,undostack+1,루프)
             else{
-                undoStack.push(target);
-                towerStack.pop();
+                resultArr[shotIdx--] = 0;
+                    //만약 undo stack에 뭐가 있으면 undo 해준 후 루프 탈출
+                    while (!undoStack.empty()){
+                        towerStack.push(undoStack.top());
+                        undoStack.pop();
+                    }
+                    //cout << "while 2 good end \ntarget : "<<0<<"\n tpos :"<< 0<< "\n";
+                break;
             }
         }
     }
