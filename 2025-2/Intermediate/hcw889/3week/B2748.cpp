@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+using ll = long long;
 
 int main()
 {
@@ -11,11 +12,11 @@ int main()
     int n;
     cin >> n;
 
-    int a = 0;
-    int b = 1;
+    ll a = 0;
+    ll b = 1;
     for (int i = 0; i < n; i++)
     {
-        int c = a + b;
+        ll c = a + b;
         a = b;
         b = c;
     }
